@@ -6,7 +6,7 @@ import nltk
 import numpy as np
 import sys
 
-from collections import Counter
+from collections import Counter, defaultdict
 from nltk.corpus import stopwords
 
 ###############################################################################
@@ -53,14 +53,18 @@ def read_reviews(path):
 
 def main():
     lang_counts = Counter()
+    avg_confs = defaultdict(float)
     for review in read_reviews(sys.argv[1]):
         text = review['reviewText']
         tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
         if tokens:
-            lang, __ = detect_language(tokens)
+            lang, conf = detect_language(tokens)
             lang_counts[lang] += 1
+            avg_confs[lang] = (avg_confs[lang]*(lang_counts[lang] - 1) + conf)\
+                / lang_counts[lang]
     
     print lang_counts
+    print avg_confs
 
 
 if __name__ == '__main__':
