@@ -19,7 +19,7 @@ def detect_language(tokens, languages=stopwords.fileids()):
         common_words = stopword_set & token_set
         lang_scores.append(len(common_words))
 
-    return max(languages, key=lang_scores)
+    return max(languages, key=lang_scores.get)
 
 
 # def make_dict_str(dictionary):
