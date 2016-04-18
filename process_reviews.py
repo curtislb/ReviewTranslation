@@ -11,9 +11,11 @@ from nltk.corpus import stopwords
 
 ###############################################################################
 
-languages = [u'english', u'spanish']
+languages = stopwords.fileids()
 
 stopword_sets = [set(stopwords.words(lang)) for lang in languages]
+
+target_languages = [u'english', u'spanish']
 
 ###############################################################################
 
@@ -28,20 +30,8 @@ def detect_language(tokens):
     best_index = np.argmax(lang_scores)
     best_lang = languages[best_index]
     best_score = lang_scores[best_index]
-    confidence = float(best_score) / len(token_set)
-    return best_lang, confidence
-
-
-# def make_dict_str(dictionary):
-#     str_list = ['{']
-#     for key, value in dictionary.iteritems():
-#         str_list.append(repr(key))
-#         str_list.append(':')
-#         str_list.append(repr(value))
-#         str_list.append(',')
-#
-#     str_list[-1] = '}'
-#     return ''.join(str_list)
+    lang_cover = float(best_score) / len(token_set)
+    return best_lang, lang_cover
 
 
 def read_reviews(path):
@@ -52,19 +42,23 @@ def read_reviews(path):
 ###############################################################################
 
 def main():
-    lang_counts = Counter()
-    avg_confs = defaultdict(float)
-    for review in read_reviews(sys.argv[1]):
-        text = review['reviewText']
-        tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
-        if tokens:
-            lang, conf = detect_language(tokens)
-            lang_counts[lang] += 1
-            avg_confs[lang] = (avg_confs[lang]*(lang_counts[lang] - 1) + conf)\
-                / lang_counts[lang]
-    
-    print lang_counts
-    print avg_confs
+    with open(sys.argv[2], 'w') as outfile:
+        lang_counts = Counter()
+        avg_ratings = defaultdict(float)
+        for review in read_reviews(sys.argv[1]):
+            text = review['reviewText']
+            tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
+            if tokens:
+                lang, cover = detect_language(tokens)
+                if lang in target_languages:
+                    new_dict = {
+                        'text': text,
+                        'rating': review['overall'],
+                        'lang': lang,
+                        'cover': cover,
+                    }
+                    outfile.write(str(new_dict) + '\n')
+
 
 
 if __name__ == '__main__':
