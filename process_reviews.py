@@ -11,12 +11,17 @@ from nltk.corpus import stopwords
 
 ###############################################################################
 
-def detect_language(tokens, languages=stopwords.fileids()):
+languages = [u'english', u'spanish']
+
+stopword_sets = [set(stopwords.words(lang)) for lang in languages]
+
+###############################################################################
+
+def detect_language(tokens):
     token_set = set(tokens)
 
     lang_scores = []
-    for lang in languages:
-        stopword_set = set(stopwords.words(lang))
+    for stopword_set in stopword_sets:
         common_words = stopword_set & token_set
         lang_scores.append(len(common_words))
 
