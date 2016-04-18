@@ -3,6 +3,7 @@
 import ast
 import gzip
 import nltk
+import numpy as np
 import sys
 
 from collections import Counter
@@ -19,7 +20,7 @@ def detect_language(tokens, languages=stopwords.fileids()):
         common_words = stopword_set & token_set
         lang_scores.append(len(common_words))
 
-    return max(languages, key=lang_scores.get)
+    return languages[np.argmax(lang_scores)]
 
 
 # def make_dict_str(dictionary):
@@ -47,7 +48,7 @@ def main():
         text = review['reviewText']
         tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
         if tokens:
-            lang, __ = detect_language(tokens)
+            lang = detect_language(tokens)
             lang_counts[lang] += 1
     
     print lang_counts
