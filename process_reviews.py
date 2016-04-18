@@ -25,7 +25,11 @@ def detect_language(tokens):
         common_words = stopword_set & token_set
         lang_scores.append(len(common_words))
 
-    return languages[np.argmax(lang_scores)]
+    best_index = np.argmax(lang_scores)
+    best_lang = languages[best_index]
+    best_score = lang_scores[best_index]
+    confidence = float(best_score) / len(token_set)
+    return best_lang, confidence
 
 
 # def make_dict_str(dictionary):
@@ -53,7 +57,7 @@ def main():
         text = review['reviewText']
         tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
         if tokens:
-            lang = detect_language(tokens)
+            lang, __ = detect_language(tokens)
             lang_counts[lang] += 1
     
     print lang_counts
