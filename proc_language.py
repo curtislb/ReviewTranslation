@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
-import ast
-import gzip
 import nltk
 import numpy as np
 import sys
 
-from collections import Counter, defaultdict
 from nltk.corpus import stopwords
+from review_data import read_reviews
 
 ###############################################################################
 
@@ -33,18 +31,10 @@ def detect_language(tokens):
     lang_cover = float(best_score) / len(token_set)
     return best_lang, lang_cover
 
-
-def read_reviews(path):
-    review_file = gzip.open(path, 'rb')
-    for line in review_file:
-        yield ast.literal_eval(line)
-
 ###############################################################################
 
 def main():
     with open(sys.argv[2], 'w') as outfile:
-        lang_counts = Counter()
-        avg_ratings = defaultdict(float)
         for review in read_reviews(sys.argv[1]):
             text = review['reviewText']
             tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
@@ -58,7 +48,6 @@ def main():
                         'cover': cover,
                     }
                     outfile.write(str(new_dict) + '\n')
-
 
 
 if __name__ == '__main__':
