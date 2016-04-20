@@ -27,9 +27,7 @@ def detect_language(tokens):
 
     best_index = np.argmax(lang_scores)
     best_lang = languages[best_index]
-    best_score = lang_scores[best_index]
-    lang_cover = float(best_score) / len(token_set)
-    return best_lang, lang_cover
+    return best_lang
 
 ###############################################################################
 
@@ -39,13 +37,12 @@ def main():
             text = review['reviewText']
             tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
             if tokens:
-                lang, cover = detect_language(tokens)
+                lang = detect_language(tokens)
                 if lang in target_languages:
                     new_dict = {
                         'text': text,
                         'rating': review['overall'],
                         'lang': lang,
-                        'cover': cover,
                     }
                     outfile.write(str(new_dict) + '\n')
 
