@@ -34,7 +34,7 @@ def detect_language(tokens):
 def main():
     with open(sys.argv[2], 'w') as outfile:
         for review in read_reviews(sys.argv[1]):
-            text = review['reviewText']
+            text = review['text']
             tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
             if tokens:
                 lang = detect_language(tokens)
