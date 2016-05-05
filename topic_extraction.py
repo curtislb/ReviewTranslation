@@ -4,12 +4,13 @@ from time import time
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.decomposition import NMF, LatentDirichletAllocation
 
+import sys
 import numpy as np
 from review_data import read_reviews
 
 n_samples = 2000
 n_features = 1000
-n_topics = 10
+n_topics = 5
 n_top_words = 20
 
 
@@ -28,23 +29,25 @@ def print_top_words(model, feature_names, n_top_words):
 
 print("Loading dataset...")
 t0 = time()
-#data_samples is a list of documents with each is a string that is the text
-data_samples = np.array(read_reviews(sys.argv[1]))
+
+data_load = []
+for review in read_reviews(sys.argv[1]):
+        if review["lang"] == "spanish":
+                data_load.append(review["text"])
+
+data_samples = data_load
 
 print("done in %0.3fs." % (time() - t0))
-
 # Use tf-idf features for NMF.
 print("Extracting tf-idf features for NMF...")
-tfidf_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, #max_features=n_features,
-								   stop_words='english')
+tfidf_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2)
 t0 = time()
 tfidf = tfidf_vectorizer.fit_transform(data_samples)
 print("done in %0.3fs." % (time() - t0))
 
 # Use tf (raw term count) features for LDA.
 print("Extracting tf features for LDA...")
-tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2, max_features=n_features,
-								stop_words='english')
+tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2, max_features=n_features)
 t0 = time()
 tf = tf_vectorizer.fit_transform(data_samples)
 print("done in %0.3fs." % (time() - t0))

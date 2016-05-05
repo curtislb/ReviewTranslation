@@ -13,7 +13,7 @@ def main():
     with open(sys.argv[2], 'w') as outfile:
         for review in read_reviews(sys.argv[1]):
             text = review['text']
-            del review['cover']
+            
             tokens = [t.lower() for t in nltk.wordpunct_tokenize(text)]
             if len(tokens) > 5:
             	outfile.write(str(review) + '\n')
