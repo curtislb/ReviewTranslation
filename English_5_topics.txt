@@ -1,0 +1,16 @@
+English 5 topics
+
+NMF
+great product works price recommend good easy quality love buy highly item fast exactly happy perfect perfectly purchase excellent install
+case kindle ipad cover fits love like tablet fit keyboard nice screen color leather stand perfectly protection perfect really looks
+camera lens pictures canon use card bag video photos cameras zoom digital flash nikon takes picture easy shoot light quality
+battery charge charger laptop batteries original life replacement time charged long hours charging phone power works new charges came longer
+sound tv use good cable work like quality don really time bought computer headphones drive ve better speakers usb set
+
+
+LDA Fitting LDA models with tf features, n_samples=2000 and n_features=1000 
+camera battery light use good great like lens quality charge time video life pictures really batteries don used better hours
+tablet keyboard use device usb computer drive laptop work windows power using like card works time bluetooth need mouse devices  
+product great amazon bought kindle time works got price work buy new good item worked received recommend ordered purchased phone   
+sound good quality great music headphones speaker remote speakers audio like price volume better use player really ear bass radio
+case 34 screen like ipad tv great cover good cable nice love use fit easy really fits little works looks
