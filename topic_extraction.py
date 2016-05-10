@@ -1,15 +1,15 @@
 from __future__ import print_function
 from time import time
 
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn.decomposition import NMF, LatentDirichletAllocation
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
 
 import sys
 import numpy as np
-from review_data import read_reviews
 import nltk
-from nltk.stem.porter import PorterStemmer
+from review_data import read_reviews
 from nltk import word_tokenize
+#from nltk.stem.porter import PorterStemmer
 
 n_samples = 2000
 n_features = 1000
@@ -27,16 +27,8 @@ def print_top_words(model, feature_names):
 print("Loading dataset...")
 t0 = time()
 
-#counter = 0
-#p_stemmer = PorterStemmer()
 data_samples = []
 for review in read_reviews(sys.argv[1]):
-#        if counter > 100:
-#                break
-#        counter += 1
-#        if review["lang"] == "english":
-#                tokens = word_tokenize(review["text"])
-#                data_samples.append(" ".join([p_stemmer.stem(i) for i in tokens]))
         data_samples.append(review['text'])
 print("done in %0.3fs." % (time() - t0))
 # Use tf-idf features for NMF.
