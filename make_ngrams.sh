@@ -1,0 +1,22 @@
+python ngram_model.py ../topic_spanish0+.json.gz 4 > genSpan0+.txt
+python ngram_model.py ../topic_spanish0=.json.gz 4 > genSpan0=.txt
+python ngram_model.py ../topic_spanish0-.json.gz 4 > genSpan0-.txt
+python ngram_model.py ../topic_spanish2+.json.gz 4 > genSpan2+.txt
+python ngram_model.py ../topic_spanish2=.json.gz 4 > genSpan2=.txt
+python ngram_model.py ../topic_spanish2-.json.gz 4 > genSpan2-.txt
+python ngram_model.py ../topic_spanish4+.json.gz 4 > genSpan4+.txt
+python ngram_model.py ../topic_spanish4=.json.gz 4 > genSpan4=.txt
+python ngram_model.py ../topic_spanish4-.json.gz 4 > genSpan4-.txt
+
+#python ngram_model.py ../topic0+.json.gz 3 > genEng0+.txt
+#python ngram_model.py ../topic0=.json.gz 3 > genEng0=.txt
+#python ngram_model.py ../topic0-.json.gz 3 > genEng0-.txt
+#python ngram_model.py ../topic1+.json.gz 3 > genEng1+.txt
+#python ngram_model.py ../topic1=.json.gz 3 > genEng1=.txt
+#python ngram_model.py ../topic1-.json.gz 3 > genEng1-.txt
+#python ngram_model.py ../topic4+.json.gz 3 > genEng4+.txt
+#python ngram_model.py ../topic4=.json.gz 3 > genEng4=.txt
+#python ngram_model.py ../topic4-.json.gz 3 > genEng4-.txt
+#python ngram_model.py ../topic8+.json.gz 3 > genEng8+.txt
+#python ngram_model.py ../topic8=.json.gz 3 > genEng8=.txt
+#python ngram_model.py ../topic8-.json.gz 3 > genEng8-.txt
